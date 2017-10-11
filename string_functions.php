@@ -50,6 +50,7 @@
 			echo $value." is a string!<br>";
 		}
 	}
+	
 	# 压缩字符串  gzcompress
 	$string = "一大堆文字";
 	$compressed = gzcompress($string);
@@ -62,6 +63,7 @@
 
 
 
+ 
 
 
 
