@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业1</title>
+	<link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+</head>
+<body style="background: lightblue">
+	<div class="container">
+		<button id="btn1" class="btn btn-info">确定</button>
+		<h1>第一个</h1>
+	</div>
+
+	<div class="container">
+	<button id="btn2" class="btn btn-success">确定</button>
+	<h1>第二个</h1>
+	</div>
+
+	<div id="users" class="container"></div>
+	<div id="users2" class="container"></div>
+</body>
+<script>
+	document.getElementById('btn1').addEventListener('click',loadUsers);
+	document.getElementById('btn2').addEventListener('click',loadUsers2);
+	var users = document.getElementById('users');
+	var users2 = document.getElementById('users2');
+	function loadUsers(){
+		users2.style.display = "none";
+		users.style.display = "block";
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET','users.json',true);
+		xhr.onload = function(){
+			if (this.status == 200) {
+				var users = JSON.parse(this.responseText);
+				// console.log(user.name);
+				var output = '';
+				for(var i in users){
+					output += `
+					<ul class="list-group">
+						<li class="list-group-item">LOGIN: ${users[i].login}</li>
+						<li class="list-group-item">ID: ${users[i].id}</li>
+						<li class="list-group-item">AVATAR_URL: ${users[i].avatar_url}</li>
+						<li class="list-group-item">GRAVATAR_ID: ${users[i].gravatar_id}</li>
+						<li class="list-group-item">URL: ${users[i].url}</li>
+						<li class="list-group-item">HTML_URL: ${users[i].html_url}</li>
+						<li class="list-group-item">FOLLOWERS_URL: ${users[i].followers_url}</li>
+						<li class="list-group-item">FOLLOWING_URL: ${users[i].following_url}</li>
+						<li class="list-group-item">GISTS_URL: ${users[i].gists_url}</li>
+						<li class="list-group-item">STARRED_URL: ${users[i].starred_url}</li>
+						<li class="list-group-item">SUBSCRIPIPTIONS_URL: ${users[i].subscriptions_url}</li>
+						<li class="list-group-item">ORGANIZATIONS_URL: ${users[i].organizations_url}</li>
+						<li class="list-group-item">REPOS_URL: ${users[i].repos_url}</li>
+						<li class="list-group-item">EVENTS_URL: ${users[i].events_url}</li>
+						<li class="list-group-item">RECEIVED_EVENTS_URL: ${users[i].received_events_url}</li>
+						<li class="list-group-item">TYPE: ${users[i].type}</li>
+						<li class="list-group-item">SITE_ADMIN: ${users[i].site_admin}</li>	
+					</ul>
+				`;
+				}
+				
+				document.getElementById('users').innerHTML = output;
+			}
+		}
+		xhr.send();
+	}
+
+	function loadUsers2(){
+		users.style.display = "none";
+		users2.style.display = "block";
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET','users2.json',true);
+		xhr.onload = function(){
+			if (this.status == 200) {
+				var users2 = JSON.parse(this.responseText);
+				// console.log(user.name);
+				var output = '';
+				for(var i in users2){
+					output += `
+					<ul>
+						<li class="list-group-item">ID: ${users2[i].id}</li> 
+						<li class="list-group-item">NAME: ${users2[i].name}</li> 
+						<li class="list-group-item">EMAIL: ${users2[i].email}</li>
+						<li class="list-group-item">STREET: ${users2[i].address.street}</li> 
+						<li class="list-group-item">SUITE: ${users2[i].address.suite}</li> 
+						<li class="list-group-item">CITY: ${users2[i].address.city}</li> 
+						<li class="list-group-item">ZIPCODE: ${users2[i].address.zipcode}</li> 
+						<li class="list-group-item">GEO:LAT:${users2[i].address.geo.lat}</li>
+						<li class="list-group-item">GEO:LAT:${users2[i].address.geo.lng}</li>
+						<li class="list-group-item">PHONE: ${users2[i].phone}</li> 
+						<li class="list-group-item">WEBSITE: ${users2[i].website}</li> 
+						<li class="list-group-item">COMPANY:name: ${users2[i].company.name}</li> 
+						<li class="list-group-item">COMPANY:CATCHPHRASE ${users2[i].company.catchPhrase}</li> 
+						<li class="list-group-item">COMPANY:BS ${users2[i].company.bs}</li> 
+					</ul>
+					`;	
+				}
+				document.getElementById('users2').innerHTML = output;
+			}
+		}
+		xhr.send();
+	}
+</script>
+</html>
